@@ -8,6 +8,42 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="93*"/>
+        </Grid.RowDefinitions>
+
+        <!-- title row  @pwcasdf -->
+        <Grid Grid.Row="0" BorderThickness="3" BorderBrush="Black">
+            <TextBlock Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25">
+                POS Demo App
+            </TextBlock>
+        </Grid>
+        
+        <!-- menu & selected list row   @pwcasdf -->
+        <Grid Grid.Row="1" Background="#FFF3F3F3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- left grid  @pwcasdf -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="3">
+                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="{x:Bind ImageSource, Mode=OneWay}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+        
+        
 
     </Grid>
 </Page>
