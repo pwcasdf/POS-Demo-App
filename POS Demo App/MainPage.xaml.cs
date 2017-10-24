@@ -22,12 +22,15 @@ namespace POS_Demo_App
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private string ImageSource { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
-            
-            ImageSource = @"https://posdb.blob.core.windows.net/images/logo.png";
+
+        }
+
+        private void OnMenuClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }
