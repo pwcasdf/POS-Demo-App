@@ -39,12 +39,16 @@
                 
             </Grid>
 
-            <GridView Grid.Column="1" IsItemClickEnabled="True" ItemClick="OnMenuClick" ItemsSource="{Binding}">
+            <GridView x:Name="MenuGridView" Grid.Column="1" IsItemClickEnabled="True" ItemClick="OnMenuClick">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Source="{Binding Attributes.ImagePath}"/>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Text="{Binding Attributes.ImageName}"/>
+                            <Image Source="{Binding Image}"  Height="100" Stretch="UniformToFill" />
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Age}" />
+                                <TextBlock Text="{Binding Email}" />
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>
