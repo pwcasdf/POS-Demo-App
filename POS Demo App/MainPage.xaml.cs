@@ -24,28 +24,33 @@ namespace POS_Demo_App
 {
     public sealed partial class MainPage : Page
     {
-        static ObservableCollection<Person> persons = new ObservableCollection<Person>();
+        static ObservableCollection<Menu> menus = new ObservableCollection<Menu>();
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            CloudStorageAccount account = new CloudStorageAccount(new StorageCredentials("SA_NAME", "SA_KEY"),true);
+            CloudStorageAccount account = new CloudStorageAccount(new StorageCredentials("SA_NAME", "ACCESS_KEY"),true);
             CloudBlobClient blobClient = account.CreateCloudBlobClient();
 
-            var container = blobClient.GetContainerReference("NAME_OF_CONTAINER");
+            var container = blobClient.GetContainerReference("CONTAINER_NAME");
             ListBlobsSegmentedInFlatListing(container);
 
-            MenuGridView.ItemsSource = persons;
+            MenuGridView.ItemsSource = menus;
         }
         
         async public static Task ListBlobsSegmentedInFlatListing(CloudBlobContainer container)
         {
             BlobContinuationToken continuationToken = null;
             BlobResultSegment resultSegment = null;
-            
+
             //Call ListBlobsSegmentedAsync and enumerate the result segment returned, while the continuation token is non-null.
             //When the continuation token is null, the last page has been returned and execution can exit the loop.
+
+            string[] separatingChars = { "/", ",", "." };
+            string imageUri = "";
+            string[] names = { };
+
             do
             {
                 //This overload allows control of the page size. You can return all remaining results by passing null for the maxResults parameter,
@@ -53,7 +58,9 @@ namespace POS_Demo_App
                 resultSegment = await container.ListBlobsSegmentedAsync("", true, BlobListingDetails.All, 10, continuationToken, null, null);
                 foreach (var blobItem in resultSegment.Results)
                 {
-                    persons.Add(new Person { Name = "dd", Age = 12, Email = "dd", Image = blobItem.StorageUri.PrimaryUri.ToString() });
+                    imageUri = blobItem.StorageUri.PrimaryUri.ToString();
+                    names = imageUri.Split(separatingChars, System.StringSplitOptions.RemoveEmptyEntries);
+                    menus.Add(new Menu { Name = names[names.Length-3], Cost = Int32.Parse(names[names.Length-2]), Image = imageUri });
                 }
                 
                 //Get the continuation token.

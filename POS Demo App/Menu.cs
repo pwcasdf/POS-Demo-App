@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace POS_Demo_App
 {
-    class Person
+    class Menu
     {
         public string Name { get; set; }
-        public int Age { get; set; }
+        public int Cost { get; set; }
         public string Image { get; set; }
-        public string Email { get; set; }
     }
 }
