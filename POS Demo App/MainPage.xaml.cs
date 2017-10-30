@@ -17,6 +17,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -83,10 +84,28 @@ namespace POS_Demo_App
         {
             string selectedMenuName=((Menu)e.ClickedItem).Name;
             listViewMenuName.Items.Add(selectedMenuName);
-            //listViewLeftArrow.
+            //listViewLeftArrow.view
             //listViewMenuName.Items.Remove(selectedMenuName);
 
 
+        }
+    }
+
+    public class ImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            string FileName = value as string;
+            var file = Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync(FileName).AsTask().Result;
+            var stream = file.OpenReadAsync().AsTask().Result;
+            var bitmapImage = new BitmapImage();
+            bitmapImage.SetSource(stream);
+            return bitmapImage;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

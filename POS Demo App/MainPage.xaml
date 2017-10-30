@@ -41,15 +41,22 @@
                         <ColumnDefinition Width="55*"/>
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="15*"/>
                     </Grid.ColumnDefinitions>
 
                     <ListView x:Name="listViewMenuName" Grid.Column="0"/>
-                    <ListView x:Name="listViewLeftArrow" Grid.Column="1"/>
+                    <ListView x:Name="listViewArrow" Grid.Column="1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="{Binding UpwardArrow, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill"/>
+                                    <Image Source="{Binding DownwardArrow, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     <ListView x:Name="listViewQuantity" Grid.Column="2"/>
-                    <ListView x:Name="listViewRightArrow" Grid.Column="3"/>
-                    <ListView x:Name="listViewRemove" Grid.Column="4"/>
+                    <ListView x:Name="listViewRemove" Grid.Column="3"/>
                 </Grid>
             </Grid>
 
