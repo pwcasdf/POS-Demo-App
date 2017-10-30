@@ -30,16 +30,30 @@
             <!-- left grid  @pwcasdf -->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="70*"/>
                     <RowDefinition Height="10*"/>
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
 
-                
+                <!-- List Area  @pwcasdf -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="15*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListView x:Name="listViewMenuName" Grid.Column="0"/>
+                    <ListView x:Name="listViewLeftArrow" Grid.Column="1"/>
+                    <ListView x:Name="listViewQuantity" Grid.Column="2"/>
+                    <ListView x:Name="listViewRightArrow" Grid.Column="3"/>
+                    <ListView x:Name="listViewRemove" Grid.Column="4"/>
+                </Grid>
             </Grid>
 
-            <GridView x:Name="MenuGridView" Grid.Column="1" IsItemClickEnabled="True" ItemClick="OnMenuClick">
+            <GridView x:Name="MenuGridView" Grid.Column="1" IsItemClickEnabled="True" ItemClick="OnMenuClick" SelectionMode="None" ItemsSource="{Binding}">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">

@@ -30,10 +30,12 @@ namespace POS_Demo_App
         {
             this.InitializeComponent();
 
-            CloudStorageAccount account = new CloudStorageAccount(new StorageCredentials("SA_NAME", "ACCESS_KEY"),true);
+            CloudStorageAccount account = new CloudStorageAccount(new StorageCredentials("SA_NAME", "SA_KEY"),true);
             CloudBlobClient blobClient = account.CreateCloudBlobClient();
 
             var container = blobClient.GetContainerReference("CONTAINER_NAME");
+
+            //Listing binded images and information from blob container  @pwcasdf
             ListBlobsSegmentedInFlatListing(container);
 
             MenuGridView.ItemsSource = menus;
@@ -69,8 +71,21 @@ namespace POS_Demo_App
             while (continuationToken != null);
         }
         
+        private void listingData(string itemName, int itemPrice)
+        {
+            /*foreach(Menu selectedMenu in menus)
+            {
+                
+            }*/
+        }
+        
         private void OnMenuClick(object sender, ItemClickEventArgs e)
         {
+            string selectedMenuName=((Menu)e.ClickedItem).Name;
+            listViewMenuName.Items.Add(selectedMenuName);
+            //listViewLeftArrow.
+            //listViewMenuName.Items.Remove(selectedMenuName);
+
 
         }
     }
