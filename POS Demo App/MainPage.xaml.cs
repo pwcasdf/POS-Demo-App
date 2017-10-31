@@ -26,11 +26,13 @@ namespace POS_Demo_App
     public sealed partial class MainPage : Page
     {
         static ObservableCollection<Menu> menus = new ObservableCollection<Menu>();
-
+        static ObservableCollection<OrderList> orderListInfo = new ObservableCollection<OrderList>();
+        
         public MainPage()
         {
             this.InitializeComponent();
-
+            this.DataContext = new OrderList();
+            
             CloudStorageAccount account = new CloudStorageAccount(new StorageCredentials("SA_NAME", "SA_KEY"),true);
             CloudBlobClient blobClient = account.CreateCloudBlobClient();
 
@@ -38,7 +40,7 @@ namespace POS_Demo_App
 
             //Listing binded images and information from blob container  @pwcasdf
             ListBlobsSegmentedInFlatListing(container);
-
+            
             MenuGridView.ItemsSource = menus;
         }
         
@@ -82,30 +84,28 @@ namespace POS_Demo_App
         
         private void OnMenuClick(object sender, ItemClickEventArgs e)
         {
+            /*try
+            {
+                foreach(ListViewItem lvi in orderListView.Items)
+                {
+                    
+                }
+            }
+            catch
+            {
+
+            }*/
+
+
             string selectedMenuName=((Menu)e.ClickedItem).Name;
-            listViewMenuName.Items.Add(selectedMenuName);
-            //listViewLeftArrow.view
-            //listViewMenuName.Items.Remove(selectedMenuName);
-
-
-        }
-    }
-
-    public class ImageConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            string FileName = value as string;
-            var file = Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync(FileName).AsTask().Result;
-            var stream = file.OpenReadAsync().AsTask().Result;
-            var bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(stream);
-            return bitmapImage;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            int selectedMenuPrice = ((Menu)e.ClickedItem).Cost;
+            
+            orderListInfo.Add(new OrderList {OrderMenuName = selectedMenuName, OrderMenuQty = 1, OrderMenuPrice = selectedMenuPrice,
+                UpArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                DownArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                ExitImage = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg"))
+            });
+            orderListView.ItemsSource = orderListInfo;
         }
     }
 }

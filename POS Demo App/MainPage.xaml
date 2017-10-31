@@ -35,28 +35,53 @@
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
 
-                <!-- List Area  @pwcasdf -->
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="15*"/>
-                    </Grid.ColumnDefinitions>
+                <ListView x:Name="orderListView" Grid.Row="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45*"/> <!-- Menu name  @pwcasdf -->
+                                    <ColumnDefinition Width="10*"/> <!-- Arrow buttons  @pwcasdf -->
+                                    <ColumnDefinition Width="10*"/> <!-- Number of items  @pwcasdf -->
+                                    <ColumnDefinition Width="20*"/> <!-- Price of item each  @pwcasdf -->
+                                    <ColumnDefinition Width="15*"/> <!-- Delete image  @pwcasdf -->
+                                </Grid.ColumnDefinitions>
 
-                    <ListView x:Name="listViewMenuName" Grid.Column="0"/>
-                    <ListView x:Name="listViewArrow" Grid.Column="1">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <Image Source="{Binding UpwardArrow, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill"/>
-                                    <Image Source="{Binding DownwardArrow, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ListView x:Name="listViewQuantity" Grid.Column="2"/>
-                    <ListView x:Name="listViewRemove" Grid.Column="3"/>
+                                <Grid Grid.Column="0" HorizontalAlignment="Stretch">
+                                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding OrderMenuName}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button Command="{Binding UpButtonClicked}">
+                                            <Image Source="{Binding UpArrow}" Stretch="UniformToFill"/>
+                                        </Button>
+                                        <Button>
+                                            <Image Source="{Binding UpArrow}" Stretch="UniformToFill"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding OrderMenuQty}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <Grid Grid.Column="3" HorizontalAlignment="Stretch">
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding OrderMenuPrice}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                </Grid>
+                                
+                                <Grid Grid.Column="4" HorizontalAlignment="Stretch">
+                                    <Button>
+                                        <Image Source="{Binding UpArrow}" Stretch="UniformToFill"/>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid Grid.Row="1">
+                    
                 </Grid>
             </Grid>
 
