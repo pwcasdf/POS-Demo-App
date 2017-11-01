@@ -27,7 +27,8 @@ namespace POS_Demo_App
     {
         static ObservableCollection<Menu> menus = new ObservableCollection<Menu>();
         static ObservableCollection<OrderList> orderListInfo = new ObservableCollection<OrderList>();
-        
+        static ObservableCollection<TotalAmount> sum = new ObservableCollection<TotalAmount>();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -40,7 +41,7 @@ namespace POS_Demo_App
 
             //Listing binded images and information from blob container  @pwcasdf
             ListBlobsSegmentedInFlatListing(container);
-            
+
             MenuGridView.ItemsSource = menus;
         }
         
@@ -74,38 +75,84 @@ namespace POS_Demo_App
             while (continuationToken != null);
         }
         
-        private void listingData(string itemName, int itemPrice)
-        {
-            /*foreach(Menu selectedMenu in menus)
-            {
-                
-            }*/
-        }
-        
         private void OnMenuClick(object sender, ItemClickEventArgs e)
         {
-            /*try
+            string selectedMenuName = ((Menu)e.ClickedItem).Name;
+            int selectedMenuPrice = ((Menu)e.ClickedItem).Cost;
+
+            try
             {
-                foreach(ListViewItem lvi in orderListView.Items)
+                if(orderListInfo.Count>0)
                 {
-                    
+                    int flag = 0;
+
+                    foreach (var a in orderListInfo)
+                    {
+                        if (a.OrderMenuName == selectedMenuName)
+                        {
+                            flag++;
+                        }
+                    }
+
+                    if (flag == 0)
+                    {
+                        orderListInfo.Add(new OrderList
+                        {
+                            OrderMenuName = selectedMenuName,
+                            OrderMenuQty = 1,
+                            OrderMenuPrice = selectedMenuPrice,
+                            sumEachMenu = selectedMenuPrice,
+                            UpArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                            DownArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                            DeleteList = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg"))
+                        });
+
+                        sum.Add(new TotalAmount
+                        {
+                            menuName = selectedMenuName,
+                            totalEach = selectedMenuPrice,
+                            totalSum = +selectedMenuPrice
+                        });
+                    }
+                }
+                else
+                {
+                    orderListInfo.Add(new OrderList
+                    {
+                        OrderMenuName = selectedMenuName,
+                        OrderMenuQty = 1,
+                        OrderMenuPrice = selectedMenuPrice,
+                        sumEachMenu = selectedMenuPrice,
+                        UpArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                        DownArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                        DeleteList = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg"))
+                    });
+
+                    sum.Add(new TotalAmount
+                    {
+                        menuName = selectedMenuName,
+                        totalEach = selectedMenuPrice,
+                        totalSum = +selectedMenuPrice
+                    });
+
+                    orderListView.ItemsSource = orderListInfo;
                 }
             }
             catch
             {
 
-            }*/
+            }
+        }
 
-
-            string selectedMenuName=((Menu)e.ClickedItem).Name;
-            int selectedMenuPrice = ((Menu)e.ClickedItem).Cost;
-            
-            orderListInfo.Add(new OrderList {OrderMenuName = selectedMenuName, OrderMenuQty = 1, OrderMenuPrice = selectedMenuPrice,
-                UpArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
-                DownArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
-                ExitImage = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg"))
-            });
-            orderListView.ItemsSource = orderListInfo;
+        public void PayButtonClicked(object sender, RoutedEventArgs e)
+        {
+            int sum = 0;
+            foreach(var a in orderListInfo)
+            {
+                sum = sum + a.sumEachMenu;
+            }
+            sumTextBlock.Text = sum.ToString();
+            orderListInfo.Clear();
         }
     }
 }
