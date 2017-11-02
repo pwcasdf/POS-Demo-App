@@ -18,6 +18,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -102,8 +103,8 @@ namespace POS_Demo_App
                             OrderMenuQty = 1,
                             OrderMenuPrice = selectedMenuPrice,
                             sumEachMenu = selectedMenuPrice,
-                            UpArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
-                            DownArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                            UpArrow = new BitmapImage(new Uri("ms-appx:///assets/up_arrow.png")),
+                            DownArrow = new BitmapImage(new Uri("ms-appx:///assets/down_arrow.png")),
                             DeleteList = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg"))
                         });
 
@@ -123,8 +124,8 @@ namespace POS_Demo_App
                         OrderMenuQty = 1,
                         OrderMenuPrice = selectedMenuPrice,
                         sumEachMenu = selectedMenuPrice,
-                        UpArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
-                        DownArrow = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg")),
+                        UpArrow = new BitmapImage(new Uri("ms-appx:///assets/up_arrow.png")),
+                        DownArrow = new BitmapImage(new Uri("ms-appx:///assets/down_arrow.png")),
                         DeleteList = new BitmapImage(new Uri("ms-appx:///assets/cute.jpg"))
                     });
 
@@ -144,14 +145,19 @@ namespace POS_Demo_App
             }
         }
 
-        public void PayButtonClicked(object sender, RoutedEventArgs e)
+        public async void PayButtonClicked(object sender, RoutedEventArgs e)
         {
             int sum = 0;
-            foreach(var a in orderListInfo)
+            foreach (var a in orderListInfo)
             {
                 sum = sum + a.sumEachMenu;
             }
-            sumTextBlock.Text = sum.ToString();
+
+            var paidMsgBox = new MessageDialog("지불금액 : " + sum + " 입니다.");
+            paidMsgBox.Title = sum.ToString();
+
+            await paidMsgBox.ShowAsync();
+
             orderListInfo.Clear();
         }
     }

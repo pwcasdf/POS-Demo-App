@@ -35,70 +35,74 @@
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="orderListView" Grid.Row="0" IsItemClickEnabled="False" SelectionMode="None">
+                <ListView x:Name="orderListView" Grid.Row="0" IsItemClickEnabled="False" SelectionMode="None" Margin="0,20,0,0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="45*"/> <!-- Menu name  @pwcasdf -->
-                                    <ColumnDefinition Width="10*"/> <!-- Arrow buttons  @pwcasdf -->
-                                    <ColumnDefinition Width="10*"/> <!-- Number of items  @pwcasdf -->
-                                    <ColumnDefinition Width="20*"/> <!-- Price of item each  @pwcasdf -->
-                                    <ColumnDefinition Width="15*"/> <!-- Delete image  @pwcasdf -->
+                                    <ColumnDefinition Width="60*"/>
+                                    <!-- Menu name  @pwcasdf -->
+                                    <ColumnDefinition Width="10*"/>
+                                    <!-- Arrow buttons  @pwcasdf -->
+                                    <ColumnDefinition Width="10*"/>
+                                    <!-- Number of items  @pwcasdf -->
+                                    <ColumnDefinition Width="20*"/>
+                                    <!-- Price of item each  @pwcasdf -->
+                                    <!--<ColumnDefinition Width="15*"/> -->
+                                    <!-- Delete image  @pwcasdf -->
                                 </Grid.ColumnDefinitions>
 
-                                <Grid Grid.Column="0" HorizontalAlignment="Stretch">
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
                                     <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding OrderMenuName}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                 </Grid>
 
                                 <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Button Command="{Binding UpButtonClicked}">
+                                        <Button Command="{Binding UpButtonClicked}" Background="#FFF3F3F3" >
                                             <Image Source="{Binding UpArrow}" Stretch="UniformToFill"/>
                                         </Button>
-                                        <Button Command="{Binding DownButtonClicked}">
+                                        <Button Command="{Binding DownButtonClicked}" Background="#FFF3F3F3" >
                                             <Image Source="{Binding DownArrow}" Stretch="UniformToFill"/>
                                         </Button>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                                <Grid Grid.Column="2" HorizontalAlignment="Center">
                                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding OrderMenuQty}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                 </Grid>
 
-                                <Grid Grid.Column="3" HorizontalAlignment="Stretch">
+                                <Grid Grid.Column="3" HorizontalAlignment="Right">
                                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding sumEachMenu}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                 </Grid>
-                                
-                                <Grid Grid.Column="4" HorizontalAlignment="Stretch">
+
+                                <!--<Grid Grid.Column="4" HorizontalAlignment="Stretch">
                                     <Button Command="{Binding DeleteButtonClicked}">
                                         <Image Source="{Binding DeleteList}" Stretch="UniformToFill"/>
                                     </Button>
-                                </Grid>
+                                </Grid>-->
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Grid Grid.Row="1">
-                    <!--<ListView x:Name="SumTotal" IsItemClickEnabled="False" SelectionMode="None">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>-->
-                                <TextBlock x:Name="sumTextBlock" Style="{StaticResource HeaderTextBlockStyle}" Text="0" HorizontalAlignment="Right"/>
-                            <!--</DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>-->
+                <Grid Grid.Row="2">
+                    <TextBlock x:Name="sumTextBlock" Style="{StaticResource HeaderTextBlockStyle}" Text="" HorizontalAlignment="Right"/>
                 </Grid>
 
-                <Grid Grid.Row="2">
-                    <Button Click="PayButtonClicked">
-                        <Image Source="ms-appx:///assets/cute.jpg" Stretch="UniformToFill"/>
+                <Grid Grid.Row="3">
+                    <Button Click="PayButtonClicked" Background="#FFF3F3F3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="ms-appx:///assets/pay.png" Stretch="Uniform"/>
                     </Button>
                 </Grid>
             </Grid>
 
             <!-- Right grid @pwcasdf -->
-            <GridView x:Name="MenuGridView" Grid.Column="1" IsItemClickEnabled="True" ItemClick="OnMenuClick" SelectionMode="None" ItemsSource="{Binding}">
+            <GridView x:Name="MenuGridView" Grid.Column="1" IsItemClickEnabled="True" ItemClick="OnMenuClick" SelectionMode="None" ItemsSource="{Binding}" >
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">

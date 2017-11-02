@@ -111,7 +111,10 @@
     <None Include="POS Demo App_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\cute.jpg" />
+    <Content Include="Assets\calc.png" />
+    <Content Include="Assets\down_arrow.png" />
+    <Content Include="Assets\pay.png" />
+    <Content Include="Assets\up_arrow.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
